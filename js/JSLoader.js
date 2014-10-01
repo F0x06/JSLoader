@@ -86,6 +86,9 @@ function JSLoader()
     // Function that call events
     this.callEvent = function callEvent(_event)
     {
+        // Retrive additional specified arguments (without _event)
+        var args = Array.prototype.slice.call(arguments).splice(1);
+
         // Debug stuff
         var debug = this.debug;
 
@@ -99,8 +102,8 @@ function JSLoader()
                 if( debug )
                     console.log("[JSLoader]: Calling event " + _event + " for " + entry.name)
 
-                // Call event
-                entry.plugin[_event]();
+                // Call event with additional arguments
+                entry.plugin[_event](args);
             } else {
 
                 // Debug stuff

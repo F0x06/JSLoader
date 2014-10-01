@@ -1,5 +1,5 @@
 
-## JSLoader<br />A Javascript plugin loader
+## JSLoader<br />A simple JavaScript plugin architecture
 
 ### Copyright
 

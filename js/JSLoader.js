@@ -44,12 +44,6 @@ function JSLoader()
     this.plugins = [];
     this.debug = false;
 
-    // Function to insert an item at specific position
-    this._insertAt = function _insertAt(array, index, value)
-    {
-        array[index] = value;
-    }
-
     // Function that registers plugins
     this.registerPlugin = function registerPlugin(_class)
     {
@@ -58,7 +52,10 @@ function JSLoader()
             console.log("[JSLoader]: Registering " + _class.constructor.name)
 
         // Push the plugin to the array
-        this._insertAt(this.plugins, _class.constructor.name, _class);
+        this.plugins.push({
+            name: _class.constructor.name,
+            plugin: _class
+        });
     }
 
     // Function that Unregisters plugins
@@ -114,6 +111,32 @@ function JSLoader()
                     console.log("[JSLoader]: Error calling event " + _event + " for " + entry.name + ", event not found")
             }
         });
+    }
+
+    // Get plugin by name
+    this.getPlugin = function getPlugin(_pluginname)
+    {
+        // Find and return the corresponding plugin
+        for( var i = 0; i < this.plugins.length; i++ )
+        {
+            if( this.plugins[i].name == _pluginname )
+                return this.plugins[i].plugin;
+        }
+    }
+
+    // Get plugin names
+    this.listPluginNames = function listPluginNames()
+    {
+        // Create return object
+        var List = [];
+
+        // Retrive all plugin names
+        this.plugins.forEach(function(entry) {
+            List.push(entry.name);
+        });
+
+        // Return result
+        return List;
     }
 
 }

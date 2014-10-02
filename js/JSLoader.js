@@ -44,6 +44,12 @@ function JSLoader()
     this.plugins = [];
     this.debug = false;
 
+    // Function to insert an item at specific position
+    this._insertAt = function _insertAt(array, index, value)
+    {
+        array[index] = value;
+    }
+
     // Function that registers plugins
     this.registerPlugin = function registerPlugin(_class)
     {
@@ -52,10 +58,7 @@ function JSLoader()
             console.log("[JSLoader]: Registering " + _class.constructor.name)
 
         // Push the plugin to the array
-        this.plugins.push({
-            name: _class.constructor.name,
-            plugin: _class
-        });
+        this._insertAt(this.plugins, _class.constructor.name, _class);
     }
 
     // Function that Unregisters plugins
@@ -114,3 +117,4 @@ function JSLoader()
     }
 
 }
+
